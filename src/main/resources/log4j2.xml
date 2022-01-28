@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration xmlns="http://logging.apache.org/log4j/2.0/config">
+
+    <Properties>
+        <Property name="logPath">logs</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%highlight{[%-5p] | %d{DEFAULT} | [%t] %C{2} (%F:%L) - BTLG_SEQ_ID=%X{BTLG_SEQ_ID} - %m%n}{TRACE=Normal}"
+                    disableAnsi="false"/>
+        </Console>
+
+        <RollingFile name="BizFeeConsumer_File">
+            <!-- <FileName>${logPath}/${date:yyyy-MM-dd}/${podName}/BizFeeKafkaConsumer.log</FileName> -->
+            <FileName>${logPath}/pods/BizFeeKafkaConsumer.log</FileName>
+            <FilePattern>${logPath}/%d{yyyy-MM-dd}/BizFeeKafkaConsumer.log.%d{yyyy-MM-dd-HH}.%i</FilePattern>
+            <PatternLayout
+                    pattern="%highlight{[%-5p]|%d{DEFAULT}|[%t] - BTLG_SEQ_ID=%X{BTLG_SEQ_ID} - %m%n}{TRACE=Normal}"
+                    disableAnsi="false"/>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="20 MB"/>
+            </Policies>
+            <!-- <DefaultRolloverStrategy max="20" /> -->
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="error">
+            <AppenderRef ref="Console"/>
+        </Root>
+
+        <Logger name="com.krungthai.biz" level="debug">
+            <AppenderRef ref="BizFeeConsumer_File"/>
+        </Logger>
+    </Loggers>
+
+</Configuration>
