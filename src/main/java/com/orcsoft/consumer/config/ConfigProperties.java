@@ -63,16 +63,4 @@ public class ConfigProperties {
         return propertiesConfig;
     }
 
-    /**
-     * @return
-     */
-    public Properties getKafkaProperties() {
-        Map<String, Object> propertiesConfigMap = getKafkaPropertiesConfig();
-        Properties properties = new Properties();
-        for (Map.Entry<String, Object> propertiesConfig : propertiesConfigMap.entrySet()) {
-            properties.put(propertiesConfig.getKey(), propertiesConfig.getValue());
-        }
-        return properties;
-    }
-
 }
